@@ -78,6 +78,7 @@ interface IHomeProps {
 }
 
 export default function Home({ data }: IHomeProps) {
+	console.log('home');
 	return (
 		<>
 			<Head>
