@@ -14,6 +14,7 @@ export const { styled, globalCss } = createStitches({
       color2: '#060F2F',
       color3: '#0E2252',
       color4: '#031740',
+      color5: '#8A2BE2',
       colorRGBBlack: "0, 0, 0",
     },
     shadows: {
