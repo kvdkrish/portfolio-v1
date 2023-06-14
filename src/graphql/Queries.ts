@@ -32,7 +32,7 @@ export const getAllData = gql`
       }
       gitLink
     }
-    allSkillsets {
+    allSkillsets(orderBy: ratings_DESC) {
       id
       name
       ratings
@@ -48,21 +48,36 @@ export const getAllData = gql`
         name
       }
     }
-    allEducations {
+    allEducations(orderBy: endYear_DESC) {
       course
       endYear
       grade
       id
       instituteName
       startYear
+      location
     }
-    allCompanies {
+    allCompanies(orderBy: startYear_DESC) {
       current
       endYear
       id
       name
       role
       startYear
+      location
+    }
+    allPlaygrounds {
+      id
+      name
+      description {
+        value
+      }
+      stacks {
+        id
+        name
+        ratings
+      }
+      gitLinks(markdown: true)
     }
   }
 `;

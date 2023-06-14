@@ -1,5 +1,10 @@
 import { IEducation } from "@/pages";
-import { asRem, styled } from "@/styles/stitchesConfig";
+import {
+	animateFillLeft,
+	animateSlideIn,
+	asRem,
+	styled,
+} from "@/styles/stitchesConfig";
 
 const LiWrapper = styled("li", {
 	background: "$color3",
@@ -13,10 +18,17 @@ const LiWrapper = styled("li", {
 	h4: {
 		textAlign: "center",
 	},
+	p: {
+		textAlign: "center",
+		margin: 0,
+		color: "$colorGrey",
+		fontSize: asRem(12),
+	},
 	hr: {
 		width: "100%",
 		border: `${asRem(0.5)} solid $colorYellow`,
 		marginBottom: asRem(20),
+		animation: `${animateFillLeft} 2s`,
 	},
 	table: {
 		tr: {
@@ -38,6 +50,7 @@ const LiWrapper = styled("li", {
 });
 
 const EducationBlockWrapper = styled("div", {
+	animation: `${animateSlideIn} 1s`,
 	ul: {
 		$$flexGap: asRem(15),
 		display: "flex",
@@ -53,7 +66,7 @@ interface IEducationBlockProps {
 function EducationBlock({ data = [] }: IEducationBlockProps) {
 	return (
 		<EducationBlockWrapper className="education">
-			<h3>Education</h3>
+			<h3>EDUCATION</h3>
 			<ul>
 				{data?.map(
 					({
@@ -63,9 +76,11 @@ function EducationBlock({ data = [] }: IEducationBlockProps) {
 						grade,
 						startYear,
 						endYear,
+						location,
 					}: IEducation) => (
 						<LiWrapper key={id}>
 							<h4>{instituteName}</h4>
+							<p>{location}</p>
 							<hr />
 							<table width={"100%"}>
 								<tbody>

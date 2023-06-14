@@ -1,11 +1,13 @@
 import { IAuthor, ISkill } from "@/pages";
-import { asRem, styled } from "@/styles/stitchesConfig";
+import { animateSlideIn, asRem, styled } from "@/styles/stitchesConfig";
+import SvgIcon from "./SvgIcon";
 
 const AboutBlockWrapper = styled("div", {
 	background: "$color2",
 	lineHeight: 1.5,
 	boxShadow: `0 -${asRem(5)} ${asRem(3)} -${asRem(3)} $shadowWhite`,
 	marginTop: asRem(50),
+	animation: `${animateSlideIn} 1s`,
 	".inner": {
 		padding: `${asRem(20)} 0 ${asRem(30)}`,
 		width: "80%",
@@ -19,17 +21,28 @@ const AboutBlockWrapper = styled("div", {
 		display: "flex",
 		flexWrap: "wrap",
 		gap: "$$flexGap",
-		width: "60%",
+		width: "70%",
+		flexDirection: "column",
 		li: {
 			display: "flex",
-			flex: `1 0 calc(100% / 2 - $$flexGap)`,
-			maxWidth: asRem(275),
+			// flex: `1 0 calc(100% / 2 - $$flexGap)`,
+			alignItems: "flex-start",
+			"&:nth-child(odd)": {
+				maxWidth: asRem(275),
+			},
 			".label-group": {
 				minWidth: asRem(75),
 				display: "flex",
 				alignItems: "center",
 				justifyContent: "space-between",
 				marginRight: asRem(15),
+			},
+			a: {
+				color: "$color5",
+				lineBreak: "anywhere",
+			},
+			svg: {
+				marginRight: asRem(5),
 			},
 		},
 	},
@@ -49,10 +62,8 @@ const AboutBlockWrapper = styled("div", {
 		},
 	},
 	"@bpTabMax": {
-		marginTop: asRem(0),
+		marginTop: asRem(20),
 		".inner": {
-			// paddingLeft: asRem(20),
-			// paddingRight: asRem(20),
 			px: 20,
 			width: "100%",
 		},
@@ -70,35 +81,27 @@ function AboutBlock({ data }: IAuthorBlockProps) {
 	return (
 		<AboutBlockWrapper className="about">
 			<div className="inner">
-				<h3>About</h3>
+				<h3>ABOUT</h3>
 				<ul className="info-list">
 					<li>
 						<div className="label-group">
-							<span>Email</span>
-							<span>:</span>
+							<SvgIcon name="email" />
+							<div>{data?.email}</div>
 						</div>
-						<div>{data?.email}</div>
 					</li>
 					<li>
 						<div className="label-group">
-							<span>LinkedIn</span>
-							<span>:</span>
+							<SvgIcon name="phone" options={{ fill: "#FFFFFF" }} />
+							<div>{data?.mobile}</div>
 						</div>
-						<div>{data?.linkedin}</div>
 					</li>
 					<li>
 						<div className="label-group">
-							<span>Mobile</span>
-							<span>:</span>
+							<SvgIcon name="linkedin" />
+							<a href={data?.linkedin} target="_blank">
+								{data?.linkedin}
+							</a>
 						</div>
-						<div>{data?.mobile}</div>
-					</li>
-					<li>
-						<div className="label-group">
-							<span>Git link</span>
-							<span>:</span>
-						</div>
-						<div>{data?.gitLink}</div>
 					</li>
 				</ul>
 				<h4>Stacks used to build the portfolio site:</h4>

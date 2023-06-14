@@ -1,5 +1,10 @@
 import { ICompany } from "@/pages";
-import { asRem, styled } from "@/styles/stitchesConfig";
+import {
+	animateSlideIn,
+	animateFillLeft,
+	asRem,
+	styled,
+} from "@/styles/stitchesConfig";
 import { useCallback } from "react";
 
 const LiWrapper = styled("li", {
@@ -14,10 +19,17 @@ const LiWrapper = styled("li", {
 	h4: {
 		textAlign: "center",
 	},
+	p: {
+		textAlign: "center",
+		margin: 0,
+		color: "$colorGrey",
+		fontSize: asRem(12),
+	},
 	hr: {
 		width: "100%",
 		border: `${asRem(0.5)} solid $colorYellow`,
 		marginBottom: asRem(20),
+		animation: `${animateFillLeft} 2s linear`,
 	},
 	table: {
 		tr: {
@@ -39,6 +51,7 @@ const LiWrapper = styled("li", {
 });
 
 const CompanyBlockWrapper = styled("div", {
+	animation: `${animateSlideIn} 1s`,
 	ul: {
 		$$flexGap: asRem(15),
 		display: "flex",
@@ -63,12 +76,21 @@ function CompanyBlock({ data = [] }: ICompanyBlockProps) {
 
 	return (
 		<CompanyBlockWrapper className="company">
-			<h3>Companies, I have worked for in the past</h3>
+			<h3>Experience</h3>
 			<ul>
 				{data?.map(
-					({ id, name, role, startYear, endYear, current }: ICompany) => (
+					({
+						id,
+						name,
+						location,
+						role,
+						startYear,
+						endYear,
+						current,
+					}: ICompany) => (
 						<LiWrapper key={id}>
 							<h4>{name}</h4>
+							<p>{location}</p>
 							<hr />
 							<table width={"100%"}>
 								<tbody>
@@ -87,17 +109,6 @@ function CompanyBlock({ data = [] }: ICompanyBlockProps) {
 									</tr>
 								</tbody>
 							</table>
-							{/* <div>
-								<strong>Role:</strong>&nbsp;{role}
-							</div>
-							<div>
-								<strong>Duration:</strong>
-								&nbsp;
-								{[
-									getDateFormat(startYear),
-									current ? "current" : getDateFormat(endYear),
-								]?.join(" - ")}
-							</div> */}
 						</LiWrapper>
 					)
 				)}

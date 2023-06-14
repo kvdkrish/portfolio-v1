@@ -1,13 +1,9 @@
-import { IProject, ISkill } from "@/pages";
-import {
-	animateSlideIn,
-	asRem,
-	styled,
-	animateFillTop,
-} from "@/styles/stitchesConfig";
+import React from "react";
+import { animateSlideIn, asRem, styled } from "@/styles/stitchesConfig";
+import { IPlayground, ISkill } from "@/pages";
 import { StructuredText } from "react-datocms/structured-text";
 
-const ProjectBlockWrapper = styled("div", {
+const PlaygroundBlockWrapper = styled("div", {
 	overflow: "hidden",
 	animation: `${animateSlideIn} 1s`,
 	ul: {
@@ -57,12 +53,20 @@ const ProjectBlockWrapper = styled("div", {
 							marginBottom: 0,
 						},
 					},
+					".link-info": {
+						marginTop: asRem(20),
+						p: {
+							marginBottom: asRem(2),
+						},
+						a: {
+							color: "$color5",
+						},
+					},
 				},
 			},
 			".vl-divider": {
 				border: `${asRem(1)} solid $colorYellow`,
 				width: asRem(1),
-				animation: `${animateFillTop} 5s`,
 			},
 		},
 	},
@@ -78,35 +82,41 @@ const ProjectBlockWrapper = styled("div", {
 	},
 });
 
-interface IProjectBlockProps {
-	data?: IProject[];
+interface IPlaygroundBlockProps {
+	data?: IPlayground[];
 }
 
-function ProjectBlock({ data = [] }: IProjectBlockProps) {
+function PlaygroundBlock({ data }: IPlaygroundBlockProps) {
 	return (
-		<ProjectBlockWrapper className="project">
-			<h3>PROJECTS</h3>
+		<PlaygroundBlockWrapper className="playground">
+			<h3>OWN PROJECTS</h3>
 			<ul>
-				{data?.map(({ id, name, description, stacks }: IProject) => (
-					<li key={id}>
-						<div className="left-part">
-							<h4>{name}</h4>
-							<div>Stacks:</div>
-							<ul className="skill-list">
-								{stacks?.map(({ id, name }: ISkill) => (
-									<li key={id}>{name}</li>
-								))}
-							</ul>
-						</div>
-						<div className="vl-divider" />
-						<div className="right-part">
-							<StructuredText data={description} />
-						</div>
-					</li>
-				))}
+				{data?.map(
+					({ id, name, description, stacks, gitLinks }: IPlayground) => (
+						<li key={id}>
+							<div className="left-part">
+								<h4>{name}</h4>
+								<div>Stacks:</div>
+								<ul className="skill-list">
+									{stacks?.map(({ id, name }: ISkill) => (
+										<li key={id}>{name}</li>
+									))}
+								</ul>
+							</div>
+							<div className="vl-divider" />
+							<div className="right-part">
+								<StructuredText data={description} />
+								<div
+									className="link-info"
+									dangerouslySetInnerHTML={{ __html: gitLinks }}
+								/>
+							</div>
+						</li>
+					)
+				)}
 			</ul>
-		</ProjectBlockWrapper>
+		</PlaygroundBlockWrapper>
 	);
 }
 
-export default ProjectBlock;
+export default React.memo(PlaygroundBlock);

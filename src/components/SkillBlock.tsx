@@ -1,8 +1,13 @@
 import { ISkill } from "@/pages";
-import { asRem, styled } from "@/styles/stitchesConfig";
-import SvgIcon from "./SvgIcon";
+import {
+	asRem,
+	styled,
+	animateFillLeft,
+	animateSlideIn,
+} from "@/styles/stitchesConfig";
 
 const SkillBlockWrapper = styled("div", {
+	animation: `${animateSlideIn} 1s`,
 	ul: {
 		$$flexGap: asRem(15),
 		display: "flex",
@@ -30,6 +35,9 @@ const SkillBlockWrapper = styled("div", {
 				"&::before": {
 					content: "★★★★★",
 					letterSpacing: asRem(3),
+					animation: `${animateFillLeft} 2s linear`,
+					display: "flex",
+					alignItems: "center",
 					background:
 						"linear-gradient(90deg, $colorYellow $$percent, $colorPrimary $$percent)",
 					backgroundClip: "text",
@@ -66,7 +74,7 @@ interface ISkillBlockProps {
 function SkillBlock({ data = [] }: ISkillBlockProps) {
 	return (
 		<SkillBlockWrapper className="skills">
-			<h3>Skills</h3>
+			<h3>SKILLS</h3>
 			<ul>
 				{data?.map(({ id, name, ratings }: ISkill) => (
 					<li key={id}>
@@ -75,7 +83,6 @@ function SkillBlock({ data = [] }: ISkillBlockProps) {
 							className="star"
 							style={{ "--ratings": ratings } as React.CSSProperties}
 						>
-							<br />
 							<span className="rating-txt">{`${ratings} out of 5`}</span>
 						</span>
 					</li>

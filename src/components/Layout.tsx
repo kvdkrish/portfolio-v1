@@ -3,7 +3,8 @@ import TopBar from "./TopBar";
 import { Inter } from "next/font/google";
 import ClientRender from "./ClientRender";
 import SideMenu from "./SideMenu";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { getLocalStorage, setLocalStorage } from "@/utils/common";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -45,9 +46,15 @@ const HeaderWrapper = styled("div", {
 	display: "flex",
 	alignItems: "center",
 	justifyContent: "flex-end",
-	padding: `0 ${asRem(20)}`,
+	padding: `${asRem(0)} ${asRem(20)}`,
 	boxShadow: `0 ${asRem(5)} ${asRem(3)} -${asRem(3)} $shadowWhite`,
 	zIndex: 1,
+	"@bpTabMedium": {
+		padding: `${asRem(30)} ${asRem(20)} ${asRem(20)}`,
+	},
+	"@bpMobile": {
+		padding: `${asRem(0)} ${asRem(20)}`,
+	},
 });
 
 const LayoutWrapper = styled("div", {
@@ -57,6 +64,12 @@ const LayoutWrapper = styled("div", {
 	position: "relative",
 	"&.prevent-scroll": {
 		overflow: "hidden",
+	},
+	"@bpTabMedium": {
+		$$topbarHeight: asRem(90),
+	},
+	"@bpMobile": {
+		$$topbarHeight: asRem(60),
 	},
 });
 
@@ -71,12 +84,14 @@ export interface INavValue {
 
 function Layout({ children }: ILayoutProps) {
 	const [showSideMenu, setShowSideMenu] = useState<boolean>(false);
+	const isMounted = useRef<boolean>(false);
 	const navData: INavValue[] = [
 		{ label: "Introduction", scrollEleName: ".intro" },
 		{ label: "Skills", scrollEleName: ".skills" },
-		{ label: "Companies", scrollEleName: ".company" },
-		{ label: "Projects", scrollEleName: ".project" },
-		{ label: "Educations", scrollEleName: ".education" },
+		{ label: "Experience", scrollEleName: ".company" },
+		{ label: "Project", scrollEleName: ".project" },
+		{ label: "Own project", scrollEleName: ".playground" },
+		{ label: "Education", scrollEleName: ".education" },
 		{ label: "About", scrollEleName: ".about" },
 	];
 
@@ -87,6 +102,19 @@ function Layout({ children }: ILayoutProps) {
 	const handleOnToggle = useCallback((val: boolean = false) => {
 		setShowSideMenu(val);
 	}, []);
+
+	const handleOnScroll = (e: any) => {
+		setLocalStorage("scrollPosition", e.currentTarget.scrollTop);
+	};
+
+	useEffect(() => {
+		if (!isMounted.current) {
+			isMounted.current = true;
+			return;
+		}
+		const ele = document.querySelector(".content");
+		ele?.scrollTo({ top: getLocalStorage("scrollPosition", 0) });
+	}, [isMounted]);
 
 	return (
 		<LayoutWrapper
@@ -104,7 +132,9 @@ function Layout({ children }: ILayoutProps) {
 					/>
 				</ClientRender>
 			</HeaderWrapper>
-			<ContentWrapper>{children}</ContentWrapper>
+			<ContentWrapper className="content" onScroll={handleOnScroll}>
+				{children}
+			</ContentWrapper>
 		</LayoutWrapper>
 	);
 }

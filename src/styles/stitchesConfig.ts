@@ -4,12 +4,13 @@ export const asRem = (size: number) => {
   return `${size / 16}rem`;
 }
 
-export const { styled, globalCss } = createStitches({
+export const { styled, globalCss, keyframes } = createStitches({
   theme: {
     colors: {
       colorPrimary: '#ffffff',
       colorSecondary: '#000000',
       colorYellow: 'yellow',
+      colorGrey: '#808080',
       color1: '#100E17',
       color2: '#060F2F',
       color3: '#0E2252',
@@ -19,7 +20,7 @@ export const { styled, globalCss } = createStitches({
     },
     shadows: {
       shadowWhite: "#ffffff",
-    }
+    },
   },
   media: {
     'bpMobile': `(max-width: ${asRem(767)})`,
@@ -54,5 +55,38 @@ export const globalStyles = globalCss({
   },
   'h1, h2, h3, h4, h5, h6': {
     margin: 0,
+  },
+});
+
+export const animateSlideIn = keyframes({
+  '0%': {
+    opacity: 0,
+    transform: 'translateY(20px)',
+  },
+  '100%': {
+    opacity: 1,
+    transform: 'translateY(0px)',
+  }
+});
+
+export const animateSlideInFromTop = keyframes({
+  '0%': {
+    opacity: 0,
+    transform: 'translateY(-20px)',
+  },
+  '100%': {
+    opacity: 1,
+    transform: 'translateY(0px)',
+  }
+});
+
+export const animateFillLeft = keyframes({
+  '0%': {
+    opacity: 0,
+    width: 0,
+  },
+  '100%': {
+    opacity: 1,
+    width: '100%',
   }
 });

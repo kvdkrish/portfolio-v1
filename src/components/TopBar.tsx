@@ -1,12 +1,12 @@
-import { asRem, styled } from "@/styles/stitchesConfig";
+import { animateSlideInFromTop, asRem, styled } from "@/styles/stitchesConfig";
 import { scrollToEle } from "@/utils/common";
 import SvgIcon from "./SvgIcon";
 import useViewPort from "@/hooks/useViewPort";
-import { useCallback } from "react";
 import { INavValue } from "./Layout";
 
 const TopBarWrapper = styled("div", {
 	position: "relative",
+	animation: `${animateSlideInFromTop} 1s`,
 	button: {
 		cursor: "pointer",
 		background: "transparent",

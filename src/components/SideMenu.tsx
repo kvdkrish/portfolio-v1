@@ -15,7 +15,7 @@ const SideMenuWrapper = styled("div", {
 	display: "flex",
 	flexDirection: "column",
 	alignItems: "flex-start",
-	transition: "all 0.2s linear",
+	transition: "width 0.2s linear",
 	"&.show": {
 		padding: `${asRem(30)} ${asRem(20)}`,
 		width: asRem(200),
@@ -29,6 +29,8 @@ const SideMenuWrapper = styled("div", {
 		padding: `${asRem(10)} ${asRem(0)}`,
 		fontSize: asRem(12),
 		textTransform: "uppercase",
+		opacity: 0,
+		transition: "opacity 0.2s linear",
 	},
 });
 
@@ -60,7 +62,15 @@ function SideMenu({ data = [], show = false, onClose }: ISideMenuProps) {
 	}, [handleClickOutside]);
 
 	return (
-		<SideMenuWrapper className={`side-menu ${show ? "show" : ""}`} ref={ref}>
+		<SideMenuWrapper
+			className={`side-menu ${show ? "show" : ""}`}
+			ref={ref}
+			onTransitionEnd={() => {
+				Array.from(ref?.current?.children)?.forEach((ele: any) => {
+					ele.style.opacity = 1;
+				});
+			}}
+		>
 			{show && (
 				<>
 					{data?.map(({ label, scrollEleName = "" }: INavValue) => (

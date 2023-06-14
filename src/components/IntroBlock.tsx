@@ -1,5 +1,5 @@
 import { IAuthor } from "@/pages";
-import { asRem, styled } from "@/styles/stitchesConfig";
+import { asRem, styled, animateSlideIn } from "@/styles/stitchesConfig";
 import { scrollToEle } from "@/utils/common";
 import { StructuredText, Image } from "react-datocms";
 
@@ -8,6 +8,7 @@ const IntroBlockWrapper = styled("div", {
 	display: "flex",
 	lineHeight: 2,
 	gap: asRem(20),
+	animation: `${animateSlideIn} 1s`,
 	">div": {
 		flex: 1,
 	},
