@@ -3,7 +3,6 @@ import {
 	animateSlideIn,
 	asRem,
 	styled,
-	animateFillTop,
 } from "@/styles/stitchesConfig";
 import { StructuredText } from "react-datocms/structured-text";
 
@@ -62,7 +61,6 @@ const ProjectBlockWrapper = styled("div", {
 			".vl-divider": {
 				border: `${asRem(1)} solid $colorYellow`,
 				width: asRem(1),
-				animation: `${animateFillTop} 5s`,
 			},
 		},
 	},
