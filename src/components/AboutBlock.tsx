@@ -25,15 +25,10 @@ const AboutBlockWrapper = styled("div", {
 		flexDirection: "column",
 		li: {
 			display: "flex",
-			// flex: `1 0 calc(100% / 2 - $$flexGap)`,
 			alignItems: "flex-start",
-			"&:nth-child(odd)": {
-				maxWidth: asRem(275),
-			},
 			".label-group": {
 				minWidth: asRem(75),
 				display: "flex",
-				alignItems: "center",
 				justifyContent: "space-between",
 				marginRight: asRem(15),
 			},
@@ -43,6 +38,7 @@ const AboutBlockWrapper = styled("div", {
 			},
 			svg: {
 				marginRight: asRem(5),
+				flex: `0 0 ${asRem(24)}`,
 			},
 		},
 	},
