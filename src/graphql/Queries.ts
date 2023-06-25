@@ -32,7 +32,7 @@ export const getAllData = gql`
       }
       gitLink
     }
-    allSkillsets(orderBy: ratings_DESC) {
+    allSkillsets(orderBy: ratings_DESC, first: 100) {
       id
       name
       ratings
