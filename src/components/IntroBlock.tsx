@@ -66,7 +66,7 @@ function IntroBlock({ data = {} }: IIntroProps) {
 				<span>
 					To contact: &nbsp;
 					<button type="button" onClick={() => scrollToEle(".about")}>
-						click me
+						click here
 					</button>
 				</span>
 			</div>
